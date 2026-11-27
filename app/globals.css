@@ -382,12 +382,18 @@ h3 {
 .featured-pair {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-  align-items: start; /* cada card tem a altura do próprio conteúdo */
+  grid-template-columns: 1fr 1fr;
   gap: 16px;
 }
 .featured-pair > .card-featured {
-  grid-column: auto;
+  flex-direction: column;
+}
+.featured-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.featured-side .card-featured {
   flex-direction: column;
 }
 .featured-pair > .card-featured:only-child {
@@ -455,6 +461,9 @@ h3 {
 }
 
 @media (max-width: 800px) {
+  .featured-pair {
+    grid-template-columns: 1fr;
+  }
   .how-steps {
     grid-template-columns: 1fr;
   }
@@ -477,6 +486,7 @@ h3 {
 .featured-pair .card-featured .metric {
   flex: none;
 }
-.featured-pair .card-featured .metric {
-  margin-top: 16px;
+.featured-pair > .card-featured .metric {
+  margin-top: auto;
+  padding-top: 16px;
 }
