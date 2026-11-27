@@ -1,19 +1,20 @@
-/* Terminal look: one dark theme, violet accent, cyan for live status, mono for structure, sans for reading. */
+/* Terminal look: light paper theme, rose accent, mono for structure, sans for reading. */
 :root {
-  --bg: #0b0a14;
-  --surface: #15132a;
-  --line: #241f40;
-  --line-strong: #3b3466;
-  --text: #e6e6f2;
-  --text-strong: #f5f5fc;
-  --muted: #a5a3c2;
-  --faint: #8e8bb0;
-  --accent: #8b5cf6;
-  --accent-hover: #a78bfa;
-  --cyan: #22d3ee;
-  --pink: #f472b6;
-  --ok: #22d3ee;
-  color-scheme: dark;
+  --bg: #f4f1ea;
+  --surface: #ffffff;
+  --line: #ddd6c7;
+  --line-strong: #c9c0ad;
+  --text: #1c1917;
+  --text-strong: #111111;
+  --title: #111111;
+  --muted: #3f3a36;
+  --faint: #5b5450;
+  --accent: #e11d48;
+  --accent-hover: #be123c;
+  --cyan: #e11d48;
+  --pink: #e11d48;
+  --ok: #e11d48;
+  color-scheme: light;
 }
 
 * {
@@ -34,10 +35,10 @@ body {
 }
 
 a {
-  color: var(--cyan);
+  color: var(--text-strong);
 }
 a:hover {
-  color: var(--text-strong);
+  color: var(--accent);
 }
 a:focus-visible,
 button:focus-visible {
@@ -66,7 +67,7 @@ button:focus-visible {
   height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.85;
 }
 
 section {
@@ -173,7 +174,7 @@ h3 {
 .tagline {
   margin: 0;
   font-size: clamp(18px, 2.2vw, 22px);
-  color: #c9c7e0;
+  color: var(--muted);
   max-width: 36ch;
 }
 .actions {
@@ -224,7 +225,7 @@ h3 {
   margin: 0;
   padding: 20px;
   overflow-x: auto;
-  color: #c9c7e0;
+  color: var(--muted);
   font: inherit;
 }
 .response .ok {
@@ -324,7 +325,7 @@ h3 {
   max-width: 62ch;
 }
 .how-panel {
-  background: rgba(21, 19, 42, 0.82);
+  background: rgba(255, 255, 255, 0.7);
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 28px 24px;
@@ -332,7 +333,7 @@ h3 {
 .how-track {
   position: relative;
   height: 4px;
-  background: var(--line);
+  background: var(--line-strong);
   border-radius: 4px;
   margin-bottom: 22px;
 }
@@ -342,8 +343,8 @@ h3 {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--cyan) 0%, var(--accent) 70%);
-  box-shadow: 0 0 18px var(--cyan);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.15);
   animation: how-run 7s linear infinite;
 }
 @keyframes how-run {
@@ -378,6 +379,36 @@ h3 {
   color: var(--pink);
 }
 
+/* Bloco grande dos projetos, com a linha de pulso passando */
+.projects-panel {
+  position: relative;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 30px;
+  overflow: hidden;
+}
+.projects-panel .projects-grid {
+  position: relative;
+  z-index: 1;
+}
+.pulse {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: pulse-line 4.5s linear infinite;
+  opacity: 0.75;
+  z-index: 0;
+  pointer-events: none;
+}
+@keyframes pulse-line {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
 /* Destaque: bot + projeto da API lado a lado */
 .featured-pair {
   grid-column: 1 / -1;
@@ -396,7 +427,7 @@ h3 {
 }
 .card-api {
   border-color: var(--accent);
-  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35), 0 18px 40px rgba(139, 92, 246, 0.12);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
 }
 .card-api h3 {
   font-size: 24px;
@@ -438,7 +469,11 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding-bottom: 64px;
+  margin-bottom: 64px;
+  padding: 36px 30px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
 }
 .contact h2 {
   font-size: 28px;
@@ -467,9 +502,18 @@ h3 {
   html {
     scroll-behavior: auto;
   }
+  .pulse,
   .how-packet {
     display: none;
   }
+}
+
+/* Destaque: textos com um contorno da cor do fundo, para aparecerem sobre o globo */
+.container, nav, footer {
+  text-shadow: 0 0 3px rgba(244, 241, 234, 0.95), 0 0 8px rgba(244, 241, 234, 0.85);
+}
+.btn, .btn-primary {
+  text-shadow: none;
 }
 
 /* Cards do destaque com a altura do próprio conteúdo (sem esticar o bloco da métrica) */

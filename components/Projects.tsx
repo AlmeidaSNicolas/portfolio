@@ -46,7 +46,9 @@ export function Projects({ apiProjects }: { apiProjects: ApiProjects }) {
       <h2 className="section-title">
         <span>01 ·</span> {p.title}
       </h2>
-      <div className="projects-grid">
+      <div className="projects-panel">
+        <div className="pulse" aria-hidden="true" />
+        <div className="projects-grid">
         <div className="featured-pair">
           <article className="card card-featured">
             <div className="body">
@@ -106,6 +108,7 @@ export function Projects({ apiProjects }: { apiProjects: ApiProjects }) {
         {regularFromApi.map((project) => (
           <ApiCard key={project.repoName} project={project} featured={false} />
         ))}
+        </div>
       </div>
     </section>
   );
