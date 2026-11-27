@@ -3,6 +3,7 @@ import type { Dictionary } from "./es";
 export const en: Dictionary = {
   nav: {
     projects: "/projects",
+    howItWorks: "/how-it-works",
     experience: "/experience",
     contact: "/contact",
   },
@@ -42,11 +43,20 @@ export const en: Dictionary = {
       title: "Tiempo-Focus",
       description: "Pomodoro app with persistent tasks and timer.",
     },
-    spring: {
-      title: "Spring Boot REST API",
-      description: "Spring Data JPA, PostgreSQL, JWT, tests and Swagger.",
-      status: "in progress",
-    },
+  },
+  howItWorks: {
+    title: "How it gets here",
+    intro:
+      "A push to GitHub becomes a card on this site. This is the path, in order.",
+    steps: [
+      { title: "Push to GitHub", detail: "A commit in a repository tagged with the portfolio topic." },
+      { title: "Webhook + HMAC", detail: "The API verifies the signature. No valid signature, it answers 401." },
+      { title: "Unique delivery", detail: "Each delivery is recorded once. If GitHub resends it, it is ignored." },
+      { title: "portfolio.json", detail: "The API reads the file and the repository metadata." },
+      { title: "es/en validation", detail: "Title and description are required in Spanish and English." },
+      { title: "PostgreSQL", detail: "Stored under the repository's GitHub id." },
+      { title: "This site", detail: "The site reads /api/projects, cached for 1 hour (ISR)." },
+    ],
   },
   experience: {
     title: "Experience",

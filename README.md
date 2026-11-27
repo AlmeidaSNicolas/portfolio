@@ -25,4 +25,4 @@ Push to GitHub and import the repository on [vercel.com/new](https://vercel.com/
 
 - `PORTFOLIO_API_URL`: `https://portfoliosync-api.onrender.com` (no trailing slash).
 
-The API runs on Render's free plan, which sleeps when idle: the first request can take about 50 seconds. The 5-second timeout in `lib/projects.ts` makes the page fall back to the static cards instead of waiting.
+The API runs on Render's free plan, which sleeps when idle: the first request can take about 50 seconds. The 30-second timeout in `lib/projects.ts` covers that wake-up. If the API still fails, the page falls back to the static cards.
