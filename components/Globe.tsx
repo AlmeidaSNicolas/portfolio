@@ -65,19 +65,19 @@ export function Globe() {
         const phase = ((t / period) + offset) % 1;
         ctx!.beginPath();
         ctx!.arc(q[0], q[1], 4 + phase * 24, 0, Math.PI * 2);
-        ctx!.strokeStyle = `rgba(34, 211, 238, ${((1 - phase) * 0.8).toFixed(3)})`;
+        ctx!.strokeStyle = `rgba(225, 29, 72, ${((1 - phase) * 0.8).toFixed(3)})`;
         ctx!.lineWidth = 1.5;
         ctx!.stroke();
       }
       ctx!.beginPath();
       ctx!.arc(q[0], q[1], 4, 0, Math.PI * 2);
-      ctx!.fillStyle = "#22d3ee";
-      ctx!.shadowColor = "#22d3ee";
+      ctx!.fillStyle = "#e11d48";
+      ctx!.shadowColor = "#e11d48";
       ctx!.shadowBlur = 14;
       ctx!.fill();
       ctx!.shadowBlur = 0;
       ctx!.font = "12px ui-monospace, Menlo, monospace";
-      ctx!.fillStyle = "#e6e6f2";
+      ctx!.fillStyle = "#1c1917";
       ctx!.fillText(LAREDO_LABEL, q[0] + 12, q[1] - 10);
     }
 
@@ -91,7 +91,7 @@ export function Globe() {
 
       ctx!.beginPath();
       ctx!.arc(cx, cy, r, 0, Math.PI * 2);
-      ctx!.strokeStyle = "rgba(165, 163, 194, 0.18)";
+      ctx!.strokeStyle = "rgba(41, 37, 36, 0.35)";
       ctx!.lineWidth = 1;
       ctx!.stroke();
 
@@ -106,8 +106,8 @@ export function Globe() {
         }
       };
 
-      dots(ocean, "rgba(110, 108, 140, 0.22)", 0.9);
-      dots(land, "rgba(190, 188, 215, 0.75)", 1.6);
+      dots(ocean, "rgba(41, 37, 36, 0.38)", 0.9);
+      dots(land, "rgba(28, 25, 23, 0.85)", 1.6);
       drawLaredo(t, cx, cy, r);
     }
 
