@@ -2,6 +2,7 @@
 export const es = {
   nav: {
     projects: "/proyectos",
+    howItWorks: "/como-llega",
     experience: "/experiencia",
     contact: "/contacto",
   },
@@ -41,11 +42,20 @@ export const es = {
       title: "Tiempo-Focus",
       description: "App Pomodoro con persistencia de tareas y temporizador.",
     },
-    spring: {
-      title: "API REST con Spring Boot",
-      description: "Spring Data JPA, PostgreSQL, JWT, tests y Swagger.",
-      status: "en construcción",
-    },
+  },
+  howItWorks: {
+    title: "Cómo llega aquí",
+    intro:
+      "Un push en GitHub se convierte en una tarjeta en este sitio. Así es el camino, en orden.",
+    steps: [
+      { title: "Push en GitHub", detail: "Un commit en un repositorio con la topic portfolio." },
+      { title: "Webhook + HMAC", detail: "La API valida la firma. Sin firma válida, responde 401." },
+      { title: "Entrega única", detail: "Cada entrega se registra una vez. Si GitHub la reenvía, se ignora." },
+      { title: "portfolio.json", detail: "La API lee el archivo y los metadatos del repositorio." },
+      { title: "Validación es/en", detail: "Título y descripción obligatorios en español e inglés." },
+      { title: "PostgreSQL", detail: "Se guarda con la clave del repositorio en GitHub." },
+      { title: "Este sitio", detail: "El sitio lee /api/projects, con caché de 1 hora (ISR)." },
+    ],
   },
   experience: {
     title: "Experiencia",

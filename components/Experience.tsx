@@ -8,7 +8,7 @@ export function Experience() {
   return (
     <section id="experiencia">
       <h2 className="section-title">
-        <span>02 ·</span> {t.experience.title}
+        <span>03 ·</span> {t.experience.title}
       </h2>
       <div className="timeline mono">
         {t.experience.items.map((item) => (

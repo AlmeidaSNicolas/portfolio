@@ -14,6 +14,7 @@ export function Nav() {
       </a>
       <div className="nav-links">
         <a href="#proyectos">{t.nav.projects}</a>
+        <a href="#como-llega">{t.nav.howItWorks}</a>
         <a href="#experiencia">{t.nav.experience}</a>
         <a href="#contacto">{t.nav.contact}</a>
         <div className="lang-toggle" role="group" aria-label={t.langLabel}>

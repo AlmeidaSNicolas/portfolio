@@ -1,16 +1,18 @@
-/* Terminal look: one deliberate dark theme, amber accent, mono for structure, sans for reading. */
+/* Terminal look: one dark theme, violet accent, cyan for live status, mono for structure, sans for reading. */
 :root {
-  --bg: #0e1110;
-  --surface: #151a18;
-  --line: #232a27;
-  --line-strong: #3a4440;
-  --text: #d9e0dc;
-  --text-strong: #f3f6f4;
-  --muted: #a9b4af;
-  --faint: #8a9690;
-  --accent: #f2a33a;
-  --accent-hover: #ffc46e;
-  --ok: #7fd1a8;
+  --bg: #0b0a14;
+  --surface: #15132a;
+  --line: #241f40;
+  --line-strong: #3b3466;
+  --text: #e6e6f2;
+  --text-strong: #f5f5fc;
+  --muted: #a5a3c2;
+  --faint: #8e8bb0;
+  --accent: #8b5cf6;
+  --accent-hover: #a78bfa;
+  --cyan: #22d3ee;
+  --pink: #f472b6;
+  --ok: #22d3ee;
   color-scheme: dark;
 }
 
@@ -32,10 +34,10 @@ body {
 }
 
 a {
-  color: var(--accent);
+  color: var(--cyan);
 }
 a:hover {
-  color: var(--accent-hover);
+  color: var(--text-strong);
 }
 a:focus-visible,
 button:focus-visible {
@@ -48,10 +50,23 @@ button:focus-visible {
 }
 
 .container {
+  position: relative;
+  z-index: 1;
   max-width: 1120px;
   margin: 0 auto;
   padding-left: max(20px, env(safe-area-inset-left));
   padding-right: max(20px, env(safe-area-inset-right));
+}
+
+/* Globo digitalizado no fundo, fixo atrás do conteúdo */
+.globe {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.6;
 }
 
 section {
@@ -158,7 +173,7 @@ h3 {
 .tagline {
   margin: 0;
   font-size: clamp(18px, 2.2vw, 22px);
-  color: #c4cdc9;
+  color: #c9c7e0;
   max-width: 36ch;
 }
 .actions {
@@ -209,7 +224,7 @@ h3 {
   margin: 0;
   padding: 20px;
   overflow-x: auto;
-  color: #c4cdc9;
+  color: #c9c7e0;
   font: inherit;
 }
 .response .ok {
@@ -227,7 +242,7 @@ h3 {
 }
 .card {
   background: var(--surface);
-  border: 1px solid #2c3531;
+  border: 1px solid var(--line-strong);
   border-radius: 10px;
   padding: 24px;
   display: flex;
@@ -301,15 +316,90 @@ h3 {
   font-size: 13px;
   color: var(--faint);
 }
-.card-pending {
-  background: transparent;
-  border: 1px dashed var(--line-strong);
+
+/* Como llega aquí (linha do tempo com pacote animado) */
+.how-intro {
+  margin: -8px 0 24px;
+  color: var(--muted);
+  max-width: 62ch;
 }
-.card-pending h3 {
+.how-panel {
+  background: rgba(21, 19, 42, 0.82);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 28px 24px;
+}
+.how-track {
+  position: relative;
+  height: 4px;
+  background: var(--line);
+  border-radius: 4px;
+  margin-bottom: 22px;
+}
+.how-packet {
+  position: absolute;
+  top: -6px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--cyan) 0%, var(--accent) 70%);
+  box-shadow: 0 0 18px var(--cyan);
+  animation: how-run 7s linear infinite;
+}
+@keyframes how-run {
+  from {
+    left: -2%;
+  }
+  to {
+    left: 100%;
+  }
+}
+.how-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+}
+.how-step {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
   color: var(--muted);
 }
-.card-pending .card-meta {
-  color: var(--accent);
+.how-step strong {
+  color: var(--text-strong);
+  font-size: 13px;
+  font-weight: 600;
+}
+.how-index {
+  color: var(--pink);
+}
+
+/* Destaque: bot + projeto da API lado a lado */
+.featured-pair {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  align-items: start; /* cada card tem a altura do próprio conteúdo */
+  gap: 16px;
+}
+.featured-pair > .card-featured {
+  grid-column: auto;
+  flex-direction: column;
+}
+.featured-pair > .card-featured:only-child {
+  grid-column: 1 / -1;
+  flex-direction: row;
+}
+.card-api {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.35), 0 18px 40px rgba(139, 92, 246, 0.12);
+}
+.card-api h3 {
+  font-size: 24px;
 }
 
 /* Experience */
@@ -364,8 +454,20 @@ h3 {
   font-size: 14px;
 }
 
+@media (max-width: 800px) {
+  .how-steps {
+    grid-template-columns: 1fr;
+  }
+  .how-track {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .how-packet {
+    display: none;
   }
 }
