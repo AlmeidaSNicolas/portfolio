@@ -418,6 +418,7 @@ h3 {
   gap: 16px;
 }
 .featured-pair > .card-featured {
+  grid-column: auto; /* the bot card stays in the left column */
   flex-direction: column;
 }
 .featured-side {
