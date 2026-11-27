@@ -2,6 +2,7 @@
 
 import { useLanguage } from "./LanguageProvider";
 import { links } from "@/lib/links";
+import type { ApiProject } from "@/lib/projects";
 
 function External({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -11,9 +12,15 @@ function External({ href, children }: { href: string; children: React.ReactNode 
   );
 }
 
-export function Projects() {
-  const { t } = useLanguage();
+type ApiProjects = {
+  es: ApiProject[] | null;
+  en: ApiProject[] | null;
+};
+
+export function Projects({ apiProjects }: { apiProjects: ApiProjects }) {
+  const { lang, t } = useLanguage();
   const p = t.projects;
+  const fromApi = apiProjects[lang] ?? [];
 
   return (
     <section id="proyectos">
@@ -70,6 +77,20 @@ export function Projects() {
             <External href={links.tiempoApp}>tiempo-focus.vercel.app</External>
           </div>
         </article>
+
+        {fromApi.map((project) => (
+          <article className="card" key={project.repoName}>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            {project.stack.length > 0 && (
+              <span className="card-meta mono">{project.stack.join(" · ")}</span>
+            )}
+            <div className="card-links mono">
+              <External href={project.htmlUrl}>GitHub</External>
+              {project.demoUrl && <External href={project.demoUrl}>Demo</External>}
+            </div>
+          </article>
+        ))}
 
         <article className="card card-pending">
           <h3>{p.spring.title}</h3>
