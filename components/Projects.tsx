@@ -71,21 +71,19 @@ export function Projects({ apiProjects }: { apiProjects: ApiProjects }) {
             </div>
           </article>
 
-          <div className="featured-side">
-            {featuredFromApi.map((project) => (
-              <ApiCard key={project.repoName} project={project} featured />
-            ))}
-
-            <article className="card">
-              <h3>{p.claudinho.title}</h3>
-              <p>{p.claudinho.description}</p>
-              <span className="card-meta mono">{p.claudinho.meta}</span>
-              <div className="card-links mono">
-                <External href={links.claudinhoRepo}>GitHub</External>
-              </div>
-            </article>
-          </div>
+          {featuredFromApi.map((project) => (
+            <ApiCard key={project.repoName} project={project} featured />
+          ))}
         </div>
+
+        <article className="card">
+          <h3>{p.claudinho.title}</h3>
+          <p>{p.claudinho.description}</p>
+          <span className="card-meta mono">{p.claudinho.meta}</span>
+          <div className="card-links mono">
+            <External href={links.claudinhoRepo}>GitHub</External>
+          </div>
+        </article>
 
         <article className="card">
           <h3>{p.airport.title}</h3>
