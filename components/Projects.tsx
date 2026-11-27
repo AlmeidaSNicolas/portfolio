@@ -12,14 +12,24 @@ function External({ href, children }: { href: string; children: React.ReactNode 
   );
 }
 
-function ApiCard({ project, featured }: { project: ApiProject; featured: boolean }) {
+// Same boxed tags on every card, the same style as the bot card.
+function Stack({ items }: { items: string[] }) {
+  if (items.length === 0) return null;
   return (
-    <article className={featured ? "card card-featured card-api" : "card"}>
+    <div className="tags mono">
+      {items.map((item) => (
+        <span key={item}>{item}</span>
+      ))}
+    </div>
+  );
+}
+
+function ApiCard({ project }: { project: ApiProject }) {
+  return (
+    <article className="card">
       <h3>{project.title}</h3>
       <p>{project.description}</p>
-      {project.stack.length > 0 && (
-        <span className="card-meta mono">{project.stack.join(" · ")}</span>
-      )}
+      <Stack items={project.stack} />
       <div className="card-links mono">
         <External href={project.htmlUrl}>GitHub</External>
         {project.demoUrl && <External href={project.demoUrl}>Demo</External>}
@@ -36,10 +46,8 @@ type ApiProjects = {
 export function Projects({ apiProjects }: { apiProjects: ApiProjects }) {
   const { lang, t } = useLanguage();
   const p = t.projects;
+  // Every project from the API sits in the column next to the bot card.
   const fromApi = apiProjects[lang] ?? [];
-  // "featured" in portfolio.json puts the project next to the bot, with the same highlight.
-  const featuredFromApi = fromApi.filter((project) => project.featured);
-  const regularFromApi = fromApi.filter((project) => !project.featured);
 
   return (
     <section id="proyectos">
@@ -49,65 +57,57 @@ export function Projects({ apiProjects }: { apiProjects: ApiProjects }) {
       <div className="projects-panel">
         <div className="pulse" aria-hidden="true" />
         <div className="projects-grid">
-        <div className="featured-pair">
-          <article className="card card-featured">
-            <div className="body">
-              <span className="badge mono">{p.bot.badge}</span>
-              <h3>{p.bot.title}</h3>
-              <p>{p.bot.description}</p>
-              <div className="tags mono">
-                <span>Java</span>
-                <span>PostgreSQL</span>
-                <span>Docker</span>
-                <span>JDBC</span>
-                <span>DeepL API</span>
+          <div className="featured-pair">
+            <article className="card card-featured">
+              <div className="body">
+                <span className="badge mono">{p.bot.badge}</span>
+                <h3>{p.bot.title}</h3>
+                <p>{p.bot.description}</p>
+                <Stack items={["Java", "PostgreSQL", "Docker", "JDBC", "DeepL API"]} />
+                <div className="card-links mono">
+                  <External href={links.botChannel}>{p.bot.viewChannel}</External>
+                  <External href={links.botRepo}>{p.bot.viewCode}</External>
+                </div>
               </div>
-              <div className="card-links mono">
-                <External href={links.botChannel}>{p.bot.viewChannel}</External>
-                <External href={links.botRepo}>{p.bot.viewCode}</External>
+              <div className="metric mono">
+                <strong>19.761 → 85</strong>
+                <span>{p.bot.metricCaption}</span>
               </div>
+            </article>
+
+            <div className="featured-side">
+              {fromApi.map((project) => (
+                <ApiCard key={project.repoName} project={project} />
+              ))}
             </div>
-            <div className="metric mono">
-              <strong>19.761 → 85</strong>
-              <span>{p.bot.metricCaption}</span>
+          </div>
+
+          <article className="card">
+            <h3>{p.claudinho.title}</h3>
+            <p>{p.claudinho.description}</p>
+            <Stack items={["Swift", "7 ★ en GitHub"]} />
+            <div className="card-links mono">
+              <External href={links.claudinhoRepo}>GitHub</External>
             </div>
           </article>
 
-          {featuredFromApi.map((project) => (
-            <ApiCard key={project.repoName} project={project} featured />
-          ))}
-        </div>
+          <article className="card">
+            <h3>{p.airport.title}</h3>
+            <p>{p.airport.description}</p>
+            <Stack items={["TypeScript", "Express", "SQLite"]} />
+            <div className="card-links mono">
+              <External href={links.airportRepo}>GitHub</External>
+            </div>
+          </article>
 
-        <article className="card">
-          <h3>{p.claudinho.title}</h3>
-          <p>{p.claudinho.description}</p>
-          <span className="card-meta mono">{p.claudinho.meta}</span>
-          <div className="card-links mono">
-            <External href={links.claudinhoRepo}>GitHub</External>
-          </div>
-        </article>
-
-        <article className="card">
-          <h3>{p.airport.title}</h3>
-          <p>{p.airport.description}</p>
-          <span className="card-meta mono">TypeScript · Express · SQLite</span>
-          <div className="card-links mono">
-            <External href={links.airportRepo}>GitHub</External>
-          </div>
-        </article>
-
-        <article className="card">
-          <h3>{p.tiempo.title}</h3>
-          <p>{p.tiempo.description}</p>
-          <span className="card-meta mono">React · TypeScript · Docker</span>
-          <div className="card-links mono">
-            <External href={links.tiempoApp}>tiempo-focus.vercel.app</External>
-          </div>
-        </article>
-
-        {regularFromApi.map((project) => (
-          <ApiCard key={project.repoName} project={project} featured={false} />
-        ))}
+          <article className="card">
+            <h3>{p.tiempo.title}</h3>
+            <p>{p.tiempo.description}</p>
+            <Stack items={["React", "TypeScript", "Docker"]} />
+            <div className="card-links mono">
+              <External href={links.tiempoApp}>tiempo-focus.vercel.app</External>
+            </div>
+          </article>
         </div>
       </div>
     </section>
