@@ -471,3 +471,12 @@ h3 {
     display: none;
   }
 }
+
+/* Cards do destaque com a altura do próprio conteúdo (sem esticar o bloco da métrica) */
+.featured-pair .card-featured .body,
+.featured-pair .card-featured .metric {
+  flex: none;
+}
+.featured-pair .card-featured .metric {
+  margin-top: 16px;
+}
