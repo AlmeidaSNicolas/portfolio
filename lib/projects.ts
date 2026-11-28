@@ -12,7 +12,7 @@ export type ApiProject = {
 };
 
 const REVALIDATE_SECONDS = 3600;
-const TIMEOUT_MS = 30000; // the Render free plan can take ~20-50 s to wake up
+const TIMEOUT_MS = 60000; // the Render free plan can take up to ~50 s to wake up after idling
 
 // Runs on the server only (called from app/page.tsx). Returns null when the API
 // is not configured, unreachable, slow, or has no projects: the page then shows
